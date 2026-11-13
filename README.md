@@ -1,72 +1,247 @@
-# StockFlow
+# 📦 StockFlow – SaaS Inventory Management System
 
-A small multi-tenant inventory app built with the MERN stack (MongoDB, Express, React, Node).
-Each signup creates its own organization, and all products are scoped to that organization.
+A modern, full-stack inventory management application designed to help small businesses organize products, monitor stock levels, and manage inventory efficiently.
 
-## Features
+Built with **React.js, Node.js, Express.js, and MongoDB**, StockFlow provides a responsive dashboard, secure authentication, and essential inventory management features.
 
-- Sign up / log in (JWT, passwords hashed with bcrypt)
-- Product CRUD with SKU unique per organization
-- Search by name or SKU
-- Quick stock adjust (+/- units)
-- Dashboard with total products, total stock and low stock items
-- Default low stock threshold in Settings
+### 🌐 Live Demo
 
-## Folder structure
+**Live Application:** https://stockflow-harisai.netlify.app/
 
-```
+**Backend API:** https://stockflow-26vj.onrender.com/
+
+**GitHub Repository:** https://github.com/Harisai26/stockflow
+
+---
+
+## ✨ Key Features
+
+### 🔐 Authentication
+- User registration and login
+- JWT-based authentication
+- Password hashing using bcryptjs
+- Protected routes for authenticated users
+
+### 📊 Inventory Dashboard
+- Overview of inventory information
+- Product and stock summaries
+- Low-stock product monitoring
+- Quick access to inventory management
+
+### 📦 Product Management
+- Add new products
+- View and search inventory
+- Edit product information
+- Delete products
+- Adjust stock quantities
+- Manage product SKUs, prices, and stock levels
+
+### 🏢 Organization-Based Inventory
+- Organization-specific product data
+- Backend authentication middleware
+- Separation of inventory records between organizations
+
+### 📱 Responsive Interface
+- Modern, responsive user interface
+- Reusable React components
+- Tailwind CSS styling
+- Easy-to-use inventory management workflow
+
+---
+
+## 🛠️ Technology Stack
+
+| Category | Technologies |
+|---|---|
+| Frontend | React.js, JavaScript, Vite |
+| Styling | Tailwind CSS |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas |
+| Authentication | JWT, bcryptjs |
+| API Communication | Axios |
+| Frontend Hosting | Netlify |
+| Backend Hosting | Render |
+| Version Control | Git, GitHub |
+
+---
+
+## 🏗️ Project Architecture
+
+```text
 stockflow/
-  server/   Express + MongoDB API
-  client/   React + Vite + Tailwind frontend
+│
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   ├── api.js
+│   │   └── main.jsx
+│   ├── package.json
+│   └── vite.config.js
+│
+├── server/
+│   ├── config/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   ├── .env.example
+│   └── package.json
+│
+├── .gitignore
+└── README.md
 ```
 
-## Running it locally
+---
 
-You need Node 18+ and MongoDB running locally (or a MongoDB Atlas connection string).
+## ⚙️ Installation and Setup
 
-### 1. Backend
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Harisai26/stockflow.git
+cd stockflow
+```
+
+### 2. Configure the Backend
 
 ```bash
 cd server
 npm install
-cp .env.example .env     # then edit the values if needed
+```
+
+Create a `.env` file inside the `server` directory:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_random_jwt_secret
+```
+
+Start the backend:
+
+```bash
 npm run dev
 ```
 
-The API runs on http://localhost:5000
+The backend runs at:
 
-### 2. Frontend
+```text
+http://localhost:5000
+```
+
+### 3. Configure the Frontend
+
+Open another terminal:
 
 ```bash
 cd client
 npm install
+```
+
+Create a `.env` file inside the `client` directory:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Start the React application:
+
+```bash
 npm run dev
 ```
 
-Open http://localhost:5173. Vite proxies `/api` calls to the backend.
+Open the local URL displayed by Vite, usually:
 
-## API routes
+```text
+http://localhost:5173
+```
 
-| Method | Route                       | What it does                  |
-| ------ | --------------------------- | ----------------------------- |
-| POST   | /api/auth/signup            | Create account + organization |
-| POST   | /api/auth/login             | Log in                        |
-| GET    | /api/auth/me                | Current user                  |
-| GET    | /api/products?search=       | List products                 |
-| POST   | /api/products               | Add product                   |
-| PUT    | /api/products/:id           | Update product                |
-| PATCH  | /api/products/:id/adjust    | Add/remove units              |
-| DELETE | /api/products/:id           | Delete product                |
-| GET    | /api/dashboard              | Dashboard numbers             |
-| GET    | /api/settings               | Get default threshold         |
-| PUT    | /api/settings               | Update default threshold      |
+---
 
-## Low stock rule
+## 🔗 API Endpoints
 
-A product is low stock when `quantity <= threshold`. If the product has no threshold of its own,
-the default from Settings is used (starts at 5).
+The backend organizes its REST API into four route groups:
 
-## Notes
+| Route Prefix | Purpose |
+|---|---|
+| `/api/auth` | User authentication |
+| `/api/products` | Product and inventory management |
+| `/api/dashboard` | Inventory dashboard data |
+| `/api/settings` | Application settings |
 
-- Delete is a hard delete (with a confirm popup).
-- Password reset is not included in this MVP.
+Protected endpoints require a valid JWT token.
+
+---
+
+## 🚀 Deployment
+
+StockFlow uses a cloud-hosted architecture:
+
+**Frontend:** Netlify  
+**Backend:** Render  
+**Database:** MongoDB Atlas
+
+The frontend communicates with the deployed Express backend through REST APIs.
+
+For frontend deployment, configure:
+
+```env
+VITE_API_URL=https://stockflow-26vj.onrender.com/api
+```
+
+For backend deployment, configure the following environment variables securely:
+
+```env
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_secure_random_jwt_secret
+NODE_ENV=production
+```
+
+Never commit real passwords, API keys, or `.env` files to GitHub.
+
+---
+
+## 🎯 Project Objective
+
+StockFlow was developed to demonstrate practical full-stack application development using the MERN stack.
+
+The project focuses on solving essential inventory management problems through a simple, accessible web application.
+
+It demonstrates:
+
+- Frontend development with React.js
+- REST API development using Express.js
+- Database integration using MongoDB
+- Authentication and protected application routes
+- Cloud deployment and environment configuration
+- End-to-end integration between frontend and backend
+
+---
+
+## 🔮 Future Enhancements
+
+- Advanced inventory analytics and reporting
+- Multi-warehouse inventory management
+- Product import and export
+- Inventory transaction history
+- Role-based access control
+- Automated low-stock notifications
+- Purchase order management
+
+---
+
+## 👨‍💻 Author
+
+**V. Hari Sai**
+
+Full-Stack Developer | React.js | Node.js | MERN Stack
+
+- **GitHub:** https://github.com/Harisai26
+- **LinkedIn:** https://www.linkedin.com/in/hari-sai-vishwanathula/
+
+---
+
+⭐ If you find this project useful, consider starring the repository.
